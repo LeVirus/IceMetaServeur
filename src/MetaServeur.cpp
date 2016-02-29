@@ -1,15 +1,15 @@
-#include "../include/jMetaServeur.h"
+#include "../include/MetaServeur.h"
 #include <iostream>
 #include <Ice/Ice.h>
 
 
-MetaServeur::MetaServeur(){
-	Ice::CommunicatorPtr ic;
+MetaServer::MetaServer(){
+	/*Ice::CommunicatorPtr ic;
 	try {
 		ic = Ice::initialize();
 		Ice::ObjectPrx obj = ic->stringToProxy("IceStorm/TopicManager:tcp -p 9999");
 		IceStorm::TopicManagerPrx topicManager = IceStorm::TopicManagerPrx::checkedCast(obj);
-		IceStorm::TopicPrx topic;
+		//IceStorm::TopicPrx topic;
 		while (!topic) {
 			try {
 				topic = topicManager->retrieve("StreamPlayerNotifs");
@@ -33,13 +33,13 @@ MetaServeur::MetaServeur(){
 
 	instVLC = libvlc_new (0, NULL);
 	pathToLemmy="../music/Lemmy.mp3";
-
+*/
 }
 
 
-biblAudio::Morceau MetaServeur::bRechercherMorceau( const std::string &sNomMusique, const Ice::Current&)
+biblAudio::Morceau MetaServer::bRechercherMorceau( const std::string &sNomMusique, const Ice::Current&)
 {
-	biblAudio::Morceau a;
+	/*biblAudio::Morceau a;
 	std::map< std::string, biblAudio::Morceau >::const_iterator it;
 	it = mmapMorceaux.find( sNomMusique );
 	if( it != mmapMorceaux.end() )
@@ -47,13 +47,13 @@ biblAudio::Morceau MetaServeur::bRechercherMorceau( const std::string &sNomMusiq
 
 		return (*it).second;
 	}
-	return a;
+	return a;*/
 }
 
 
-biblAudio::mvectRecherche MetaServeur::getMorceauxMorc( const std::string &sNomMorc, const Ice::Current& )
+biblAudio::mvectRecherche MetaServer::getMorceauxMorc( const std::string &sNomMorc, const Ice::Current& )
 {
-	mvectRecherche.clear();
+	/*mvectRecherche.clear();
 	for( biblAudio::mmapMorceaux::iterator it = mmapMorceaux.begin(); it != mmapMorceaux.end(); ++it )
 	{
 		if( ( (*it) . second ).msNomMorceau == sNomMorc )
@@ -61,13 +61,13 @@ biblAudio::mvectRecherche MetaServeur::getMorceauxMorc( const std::string &sNomM
 			mvectRecherche.push_back( (*it) . second );
 		}
 	}
-	return mvectRecherche;
+	return mvectRecherche;*/
 }
 
 
-biblAudio::mvectRecherche MetaServeur::getMorceauxArt( const std::string &sNomArtiste, const Ice::Current& )
+biblAudio::mvectRecherche MetaServer::getMorceauxArt( const std::string &sNomArtiste, const Ice::Current& )
 {
-	mvectRecherche.clear();
+	/*mvectRecherche.clear();
 	for( biblAudio::mmapMorceaux::iterator it = mmapMorceaux.begin(); it != mmapMorceaux.end(); ++it )
 	{
 		if( ( (*it) . second ).msNomArtiste == sNomArtiste )
@@ -75,31 +75,31 @@ biblAudio::mvectRecherche MetaServeur::getMorceauxArt( const std::string &sNomAr
 			mvectRecherche.push_back( (*it) . second );
 		}
 	}
-	return mvectRecherche;
+	return mvectRecherche;*/
 }
 
 
-void MetaServeur::afficherMorceaux(const Ice::Current&)
+void MetaServer::afficherMorceaux(const Ice::Current&)
 {
-	for( biblAudio::mmapMorceaux::const_iterator it = mmapMorceaux.begin(); it != mmapMorceaux.end(); ++it )
+	/*for( biblAudio::mmapMorceaux::const_iterator it = mmapMorceaux.begin(); it != mmapMorceaux.end(); ++it )
 	{
 		std::cout << (*it) .first <<"\n";
-	}
+	}*/
 }
 
-bool MetaServeur::bAjoutMorceau(const std::string &sNomArt, const  std::string &sNomMorc, const  std::string &sFic,  int uiDureeMorc , int uiDateSortie, const Ice::Current&){
-	biblAudio::Morceau morceau;
+bool MetaServer::bAjoutMorceau(const std::string &sNomArt, const  std::string &sNomMorc, const  std::string &sFic,  int uiDureeMorc , int uiDateSortie, const Ice::Current&){
+	/*biblAudio::Morceau morceau;
 	morceau.msFichier = sFic;
 	morceau.msNomArtiste = sNomMorc;
 	morceau.msNomMorceau = sNomArt;
 	morceau.muiDateSortie = uiDateSortie;
 	morceau.muiDureeMorceau = uiDureeMorc;
 	mmapMorceaux . insert( std::pair< std::string, biblAudio::Morceau > ( sNomArt, morceau ) );
-	return true;
+	return true;*/
 }
 
-bool MetaServeur::bSuprMorceau( const std::string &sNomArt,const std::string &sNomMorc , const Ice::Current&){
-	biblAudio::mmapMorceaux::iterator it;
+bool MetaServer::bSuprMorceau( const std::string &sNomArt,const std::string &sNomMorc , const Ice::Current&){
+/*	biblAudio::mmapMorceaux::iterator it;
 	it = mmapMorceaux.find( sNomMorc );
 
 	for( biblAudio::mmapMorceaux::iterator it = mmapMorceaux.begin(); it != mmapMorceaux.end(); ++it ){
@@ -110,36 +110,26 @@ bool MetaServeur::bSuprMorceau( const std::string &sNomArt,const std::string &sN
 		}
 	}
 	return false;
+	*/
 }
 
-void MetaServeur::prepareSong()
+void MetaServer::prepareSong()
 {
-	//recherche de la piste à jouer
-	mediaVLC = libvlc_media_new_path (instVLC, pathToLemmy.c_str());
-	//envoyer les informations au lecteur
-	mediaPlayerVLC= libvlc_media_player_new_from_media (mediaVLC);
-	//libérer le média
-	libvlc_media_release (mediaVLC);
 }
 
-void MetaServeur::readSoundFic(const std::string &pathToFic,const Ice::Current&)
+void MetaServer::readSoundFic(const std::string &pathToFic,const Ice::Current&)
 {
-	pathToLemmy = pathToFic;
-	prepareSong();
-	libvlc_media_player_play (mediaPlayerVLC);
 }
 
-void MetaServeur::readSound(const std::string &sNomMorceau,const std::string &sNomArtiste,const Ice::Current& iceCurrent)
+void MetaServer::readSound(const std::string &sNomMorceau,const std::string &sNomArtiste,const Ice::Current& iceCurrent)
 {
-	mvectRecherche = getMorceauxArt( sNomArtiste, iceCurrent );
+/*	mvectRecherche = getMorceauxArt( sNomArtiste, iceCurrent );
 	biblAudio::Morceau morc = rechercherMorceauVect( mvectRecherche , sNomMorceau);
 	if(morc.msNomMorceau == "erreur")return; 
-	pathToLemmy = morc.msFichier;
-	prepareSong();
-	libvlc_media_player_play (mediaPlayerVLC);
+	*/
 }
 
-biblAudio::Morceau MetaServeur::rechercherMorceauVect( biblAudio::mvectRecherche mvectMorc,const std::string &nomMorc )
+biblAudio::Morceau MetaServer::rechercherMorceauVect( biblAudio::mvectRecherche mvectMorc,const std::string &nomMorc )
 {
 	for(unsigned int i = 0;i<mvectMorc.size();i++)
 	{
@@ -151,13 +141,9 @@ biblAudio::Morceau MetaServeur::rechercherMorceauVect( biblAudio::mvectRecherche
 	return a;
 }
 
-void MetaServeur::stopSound(const Ice::Current&)
+void MetaServer::stopSound(const Ice::Current&)
 {
-	if(mediaPlayerVLC)	    
-		libvlc_media_player_stop (mediaPlayerVLC);
 }
 
-MetaServeur::~MetaServeur(){
-	libvlc_release (instVLC);
-	libvlc_media_player_release (mediaPlayerVLC);
+MetaServer::~MetaServer(){
 }

@@ -27,7 +27,7 @@ class MetaServer : public  biblAudio :: ServeurIce
 	private:
 		biblAudio::ServeurIcePrx servA, servB;
 	public:
-		MetaServeur();
+		MetaServer();
 		biblAudio::mvectRecherche getMorceauxArt( const std::string &sNomArtiste, const Ice::Current& );
 		biblAudio::Morceau rechercherMorceauVect( biblAudio::mvectRecherche mvectMorc,const std::string &nomMorc ); 
 		biblAudio::mvectRecherche getMorceauxMorc( const std::string &sNomMorc, const Ice::Current& );
@@ -41,7 +41,7 @@ class MetaServer : public  biblAudio :: ServeurIce
 		void readSoundFic(const std::string &pathToFic,const Ice::Current&);
 		void readSound(const std::string &sNomMorceau,const std::string &sNomArtiste,const Ice::Current&);
 		void prepareSong();
-		~MetaServeur();
+		~MetaServer();
 };
 
 #endif // BIBLAUDIO_H 

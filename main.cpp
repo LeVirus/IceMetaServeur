@@ -1,5 +1,5 @@
 #include <iostream>
-#include "include/jBiblAudio.h"
+#include "include/MetaServeur.h"
 #include <Ice/Ice.h>
 //#include <Printer.h>
  
@@ -14,7 +14,7 @@ int main(int argc, char* argv[])
         ic = Ice::initialize(argc, argv);
         Ice::ObjectAdapterPtr adapter =
             ic->createObjectAdapterWithEndpoints("MetaServerAdapter", "default -p 10000");
-        Ice::ObjectPtr object = new BiblAudio;
+        Ice::ObjectPtr object = new MetaServer;
         adapter->add(object, ic->stringToIdentity("MetaServer"));
         adapter->activate();
         ic->waitForShutdown();
