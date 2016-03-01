@@ -13,7 +13,7 @@ int main(int argc, char* argv[])
     try {
         ic = Ice::initialize(argc, argv);
         Ice::ObjectAdapterPtr adapter =
-            ic->createObjectAdapterWithEndpoints("MetaServerAdapter", "default -p 10000");
+            ic->createObjectAdapterWithEndpoints("MetaServerAdapter", "default -p 10001");
         Ice::ObjectPtr object = new MetaServer;
         adapter->add(object, ic->stringToIdentity("MetaServer"));
         adapter->activate();

@@ -18,7 +18,7 @@ SRC=$(wildcard $(SRC_DIR)*.cpp)
 SRC_BIS=$(subst $(SRC_DIR),$(OBJ_DIR),$(SRC))
 OBJ=$(SRC_BIS:.cpp=.o)
 
-EXE=$(BIN_DIR)serveur
+EXE=$(BIN_DIR)metaServeur
 
 all: $(EXE)
 

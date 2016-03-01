@@ -7,7 +7,7 @@ MetaServer::MetaServer(){
     Ice::CommunicatorPtr ic;
     try {
 	ic = Ice::initialize();
-	Ice::ObjectPrx obj = ic->stringToProxy("BiblAudio:tcp -p 9999");
+	Ice::ObjectPrx obj = ic->stringToProxy("BiblAudio:tcp -p 10000");
 	servA = biblAudio::ServeurIcePrx::checkedCast(obj);
 	if(!servA)std::cerr << "servA not found\n";
     } catch (const Ice::Exception& e) {
