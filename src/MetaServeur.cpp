@@ -8,8 +8,8 @@ MetaServer::MetaServer(){
     try {
 	ic = Ice::initialize();
 	Ice::ObjectPrx obj = ic->stringToProxy("BiblAudio:tcp -p 9999");
-	servA=biblAudio::ServerPrx::checkedCast(obj);
-	if(!servA)std::cerr << "servA not found" << '\n';
+	servA = biblAudio::ServeurIcePrx::checkedCast(obj);
+	if(!servA)std::cerr << "servA not found\n";
     } catch (const Ice::Exception& e) {
 	std::cerr << e << '\n';
     }
@@ -100,6 +100,7 @@ void MetaServer::prepareSong()
 
 void MetaServer::readSoundFic(const std::string &pathToFic,const Ice::Current&)
 {
+	servA->readSoundFic( pathToFic );
 }
 
 void MetaServer::readSound(const std::string &sNomMorceau,const std::string &sNomArtiste,const Ice::Current& iceCurrent)
